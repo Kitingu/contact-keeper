@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const config = require('config');
 const User = require('../models/User');
+const verifyToken = require('../middlewares/jwt');
 
 /**
  * @route POST api/auth
@@ -60,7 +61,15 @@ router.post(
  * @desc  get loggedin user
  * @access Private
  */
-router.get('/', (req, res) => {
-	res.send('register a user');
+router.get('/', verifyToken, async(req, res) => {
+	try {
+		const user = await User.findById(req.user.id).select('-password')
+		res.json(user);
+	} catch (error) {
+		console.log(error.message)
+		res.status(500).send('Something went wrong')
+
+	}
+
 });
 module.exports = router;

@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-
+const Contact = require('../models/Contact');
+const verifyToken = require('../middlewares/jwt');
+const { check, validationResult } = require('express-validator');
+const config = require('config');
+const User = require('../models/User');
 /**
  * @route POST api/contact
  * @desc   Register a contact
@@ -15,8 +19,16 @@ router.post('/', (req, res) => {
  * @desc   Register a contact
  * @access Private
  */
-router.get('/', (req, res) => {
-	res.send('get a contact');
+router.get('/', verifyToken, async (req, res) => {
+	try {
+		const contacts = await Contact.find({ user: req.user.id }).sort({
+			date: -1,
+		});
+		res.json(contacts);
+	} catch (error) {
+		console.log(error.message);
+		res.status(500).send('something went wrong');
+	}
 });
 
 /**

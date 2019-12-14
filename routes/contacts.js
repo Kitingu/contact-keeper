@@ -10,9 +10,36 @@ const User = require('../models/User');
  * @desc   Register a contact
  * @access Private
  */
-router.post('/', (req, res) => {
-	res.send('register a contact');
-});
+router.post(
+	'/',
+	verifyToken,
+	[
+		check('name', 'Name is required')
+			.not()
+			.isEmpty(),
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+		const { name, email, phone, type } = req.body;
+		try {
+			const newContact = new Contact({
+				name,
+				email,
+				phone,
+				type,
+				user: req.user.id,
+			});
+			const contact = await newContact.save();
+			res.json(contact);
+		} catch (error) {
+			console.log(error.message);
+			res.status(500).send('Something went wrong');
+		}
+	}
+);
 
 /**
  * @route GET api/contacts

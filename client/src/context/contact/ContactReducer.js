@@ -14,7 +14,14 @@ export default (state, action) => {
 			return {
 				...state,
 				// add to existing contacts in state the contact parsed in as payload
-				contacts: [...state.contacts, action.payload],
+				contacts: [...state.contacts, action.payload], //payload is the new contact object
+			};
+		case DELETE_CONTACT:
+			return {
+				...state,
+				contacts: state.contacts.filter((contact) => {
+					return contact.id !== action.payload; //payload is the id
+				}),
 			};
 
 		default:

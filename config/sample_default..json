@@ -1,4 +1,4 @@
 {
-	"mongoURI": "",
-	"JWT_SECRET": ""
+  "mongoURI": "mongodb+srv://<username>:<password>@<database-name>-vaniv.mongodb.net/test?retryWrites=true&w=majority",
+  "JWT_SECRET": ""
 }

@@ -88,7 +88,6 @@ const ContactState = props => {
         filtered:state.filtered,
         addContact,
         deleteContact,
-        deleteContact,
         setCurrent,
         clearCurrent,
         updateContact,

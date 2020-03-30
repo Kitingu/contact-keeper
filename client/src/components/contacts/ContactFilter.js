@@ -11,7 +11,7 @@ const ContactFilter = () => {
     }
   });
   const onChange = e => {
-    if (text.current.value != "") {
+    if (text.current.value !== "") {
       //current value for the input field
       filterContacts(e.target.value);
     } else {

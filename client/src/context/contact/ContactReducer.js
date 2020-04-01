@@ -21,9 +21,9 @@ export default (state, action) => {
       };
     case ADD_CONTACT:
       return {
-        ...state,
-        // add to existing contacts in state the contact parsed in as payload
+        // add new contacts before the old state
         contacts: [...state.contacts, action.payload], //payload is the new contact object
+        ...state,
         loading: false
       };
 
@@ -39,7 +39,7 @@ export default (state, action) => {
       return {
         ...state,
         contacts: state.contacts.filter(contact => {
-          return contact.id !== action.payload; //payload is the id
+          return contact._id !== action.payload; //payload is the id
         }),
         loading: false
       };

@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://bendeh:bendeh911@contactkeeper-vaniv.mongodb.net/test?retryWrites=true&w=majority",
+  "JWT_SECRET": "asdfghjkl;"
+}

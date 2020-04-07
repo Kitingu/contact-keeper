@@ -21,10 +21,11 @@ export default (state, action) => {
       };
     case ADD_CONTACT:
       return {
-        // add new contacts before the old state
-        contacts: [...state.contacts, action.payload], //payload is the new contact object
         ...state,
-        loading: false
+        // add new contacts before the old state
+        contacts: [action.payload, ...state.contacts],
+
+        loading: false,
       };
 
     case UPDATE_CONTACT:

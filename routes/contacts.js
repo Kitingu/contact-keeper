@@ -3,7 +3,7 @@ const router = express.Router();
 const Contact = require('../models/Contact');
 const verifyToken = require('../middlewares/jwt');
 const { check, validationResult } = require('express-validator');
-const config = require('config');
+
 const User = require('../models/User');
 /**
  * @route POST api/contact
@@ -78,7 +78,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 		if (contact.user.toString() !== req.user.id) {
 			return res.status(401).json({ message: 'Not authorised' });
 		}
-		console.log('we are here');
+
 		contact = await Contact.findByIdAndUpdate(
 			req.params.id,
 			{ $set: contactFields },

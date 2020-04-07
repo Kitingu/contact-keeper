@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const authRoutes = require("./routes/auth");
 const contactRoutes = require("./routes/contacts");
 const userRoutes = require("./routes/users");
+const { handle404, handle500 } = require("./middlewares/errorHandler");
 const app = express();
 
 app.use(express.json());
@@ -18,6 +19,12 @@ connectDB();
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/contacts", contactRoutes);
+
+// handle 404 error
+app.use(handle404);
+
+// handle 500
+app.use(handle500);
 
 // server static assets in production
 if (process.env.NODE_ENV === "production") {
